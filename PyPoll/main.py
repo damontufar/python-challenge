@@ -12,7 +12,6 @@ csvpath = os.path.join('..', 'Resources', 'election_data.csv')
 #Defining Variables
 nr_votes = []
 candidates = []
-khan_votes = 0
 
 
 #Open the file in read mode and store it in te variable csvfile
