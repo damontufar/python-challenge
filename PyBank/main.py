@@ -8,35 +8,46 @@ import csv
 csvpath = os.path.join('..', 'Resources', 'budget_data.csv')
 
 #Defining Variables
-nr_months = 0
+months = []
 net_amount = []
-amount_change = []
+#enter a 0 on the list because the first month does not have a change
+amount_change = [0]
 
 #Open the file in read mode and store it in te variable csvfile
 with open(csvpath) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
     next(csvfile, None)
    
+    #Columns data as lists
     for row in csvreader:
-        
-        #+= add and asign, Reference: https://medium.com/@rinu.gour123/different-types-of-operators-in-python-a2dde168f0a8
-        nr_months += 1
+        months.append(row[0])
         net_amount.append(int(row[1]))
-        
+
+    
+    #Calculations for month over month AVG change
     for amount in range(1, len(net_amount)):
         amount_change.append(net_amount[amount] - net_amount[amount-1])
-        avg_change = sum(amount_change)/len(amount_change)
+    #Len of amount_change minus the first 0 that we entered to the list
+        avg_change = sum(amount_change)/(len(amount_change)-1)
+    
+    #Assign month and value for de greatest increase & decrease
         
+        date_greatest_increase = months[amount_change.index(max(amount_change))]
+        greatest_increase = max(amount_change)
+        date_greatest_decrease = months[amount_change.index(min(amount_change))]
+        greatest_decrease = min(amount_change)
+        
+    #Print the results
+    print('Financial Analysis')
+    print('---------------------------------')
+    print(f'Total: ${sum(net_amount)}')
+    #Resource formating: https://www.kite.com/python/answers/how-to-print-a-float-with-two-decimal-places-in-python#:~:text=Use%20str.,float%20with%20two%20decimal%20places&text=format(number)%20with%20%22%7B,number%20with%20two%20decimal%20places.
+    print(f'Average Change: ${"{:.2f}".format(avg_change)}')
+    print(f'Greatest Increase in Profits: {date_greatest_increase} (${greatest_increase})')
+    print(f'Greatest Decrease in Profits: {date_greatest_decrease} (${greatest_decrease})')
 
 
-
-
-
-    #Check the results
-    #print(nr_months)
-    #print(sum(net_amount))
-    #print(amount_change), Resource: https://www.kite.com/python/answers/how-to-print-a-float-with-two-decimal-places-in-python#:~:text=Use%20str.,float%20with%20two%20decimal%20places&text=format(number)%20with%20%22%7B,number%20with%20two%20decimal%20places.
-    #print("{:.2f}".format(avg_change))
+    
 
 
     
