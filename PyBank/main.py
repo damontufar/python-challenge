@@ -45,6 +45,7 @@ with open(csvpath) as csvfile:
     print(f'''
     Financial Analysis
     ---------------------------------
+    Total Months: {len(months)}
     Total: ${sum(net_amount)}
     Average Change: ${"{:.2f}".format(avg_change)}
     Greatest Increase in Profits: {date_greatest_increase} (${greatest_increase})
