@@ -1,6 +1,8 @@
 # Import os module
 # Allows different operating systems to create file path
+#Import sys to redirect print output to a txt file
 import os
+import sys
 
 #Module for reading CSV files
 import csv
@@ -38,22 +40,15 @@ with open(csvpath) as csvfile:
         greatest_decrease = min(amount_change)
         
     #Print the results
-    print('Financial Analysis')
-    print('---------------------------------')
-    print(f'Total: ${sum(net_amount)}')
-    #Resource formating: https://www.kite.com/python/answers/how-to-print-a-float-with-two-decimal-places-in-python#:~:text=Use%20str.,float%20with%20two%20decimal%20places&text=format(number)%20with%20%22%7B,number%20with%20two%20decimal%20places.
-    print(f'Average Change: ${"{:.2f}".format(avg_change)}')
-    print(f'Greatest Increase in Profits: {date_greatest_increase} (${greatest_increase})')
-    print(f'Greatest Decrease in Profits: {date_greatest_decrease} (${greatest_decrease})')
+    #Resource formating: https://www.kite.com/python/answers/how-to-print-a-float-with-two-decimal-places-in-python#:~:text=Use%20str.,float%20with%20two%20decimal%20places&text=format(number)%20with%20%22%7B,number%20with%20two%20decimal%20places
+    sys.stdout = open('pybank_results.txt', 'w')
+    print(f'''
+    Financial Analysis
+    ---------------------------------
+    Total: ${sum(net_amount)}
+    Average Change: ${"{:.2f}".format(avg_change)}
+    Greatest Increase in Profits: {date_greatest_increase} (${greatest_increase})
+    Greatest Decrease in Profits: {date_greatest_decrease} (${greatest_decrease})
+    ''')
 
-
-    
-
-
-    
-    
-    
-
-
-
-    
+    sys.stdout.close()
